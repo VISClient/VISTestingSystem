@@ -1,0 +1,45 @@
+
+
+<!DOCTYPE html>
+<html ng-app="resultApp">
+<head>
+ <meta charset="utf-8">
+ <title>Results</title>
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+ <script src="table.js"></script>
+</head>
+<body ng-controller="ResultCtrl">
+  <h2>Results</h2>
+  <table class="table table-striped">
+   <tr>
+    <th>Position</th>
+    <th>Name</th>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+    <th>Score</th>
+    <th>Time</th>
+   </tr>
+   <tr ng-repeat="result in results | orderBy: 'pos' ">
+    <td>{{result.pos}}</td>
+    <td>{{result.name}}</td>
+    <td>{{result.a}}</td>
+    <td>{{result.b}}</td>
+    <td>{{result.c}}</td>
+    <td>{{result.d}}</td>
+    <td>{{result.e}}</td>
+    <td>{{result.f}}</td>
+    <td>{{result.score}}</td>
+    <td>{{result.time}}</td>
+   </tr>
+  </table>
+</body>
+</html>
+
+
+

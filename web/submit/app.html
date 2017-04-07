@@ -1,0 +1,36 @@
+
+
+<!-- <link rel="stylesheet" href="app.css" /> -->
+
+<!doctype html>
+<html lang="en" ng-app="app" >
+  <head>
+    <meta charset="utf-8">
+    <title>Submit</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js"></script>
+     <script src="bower_components/angular/angular.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body>
+    <lu>
+      <p>SUBMIT SOLUTION</p>
+    </lu>
+<div ng-app="app" ng-controller="taskCtrl">
+    <p>Task</p>
+  <dropdown-list data-items-list="itemsList" data-placeholder="Task"></dropdown-list>
+</div>
+
+<div ng-app="app" ng-controller="langCtrl">
+    <p>Language</p>
+  <dropdown-list data-items-list="itemsList2" data-placeholder="Language"></dropdown-list>
+</div>
+
+
+<div ng-controller="myAppController" style="text-antity:align:center">
+  <button ng-click="calculateQuantity()">submit</button>
+</div>
+
+
+</body>
+</html>
