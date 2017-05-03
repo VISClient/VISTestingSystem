@@ -1,4 +1,4 @@
- angular.module('resultApp', []) // version to load from server
+ angular.module('app', []) // version to load from server
  // .controller('ResultCtrl', function ($scope, $http){
  //    $http.get('results.json').success(function(data) {
  //      $scope.countries = data;

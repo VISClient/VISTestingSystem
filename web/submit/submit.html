@@ -1,7 +1,6 @@
 
 
 <!-- <link rel="stylesheet" href="app.css" /> -->
-
 <!doctype html>
 <html lang="en" ng-app="app" >
   <head>
@@ -9,7 +8,7 @@
     <title>Submit</title>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js"></script>
-     <script src="bower_components/angular/angular.js"></script>
+     <!--<script src="bower_components/angular/angular.js"></script>-->
     <script src="submit.js"></script>
   </head>
   <body>
@@ -20,48 +19,23 @@
     </lu>
 <div ng-app="app" ng-controller="taskCtrl">
     <p>Задача</p>
-    <select>
-      <option>A</option>
-      <option>B</option>
-      <option>C</option>
-      <option>D</option>
+    <select ng-model="problem" > 
+      <option ng-repeat="el in problemList" value="{{el}}">{{el}}</option>
     </select>
-  <!-- <dropdown-list data-items-list="itemsList" data-placeholder="Task"></dropdown-list> -->
-</div>
 
-<div ng-app="app" ng-controller="langCtrl">
     <p>Язык</p>
-    <select>
-      <option>C++ 14</option>
-      <option>C++ 11</option>
-      <option>Java 8.0</option>
-      <option>Pascal</option>
-      <option>Phyton</option>
+    <select ng-model="languages" > 
+      <option ng-repeat="el in languageList" value="{{el}}">{{el}}</option>
     </select>
-  <!-- <dropdown-list data-items-list="itemsList2" data-placeholder="Language"></dropdown-list> -->
+<br>
+<br>
+<input ng-model="selectFile"
+       onchange="angular.element(this).scope().file_changed(this)"
+       type="file" accept="*" />
+
+
+<br>
+  <button ng-click="submitClick()">Отправить</button>
 </div>
-
-
-<div ng-controller="myAppController" style="text-antity:align:center">
- <p>Файл</p>
-<p> 
-  <!-- <label for='file_selection'>Choose file...</label> -->
-  <!-- <input id='file_selector' type='file' accept='text/plain'/> -->
-  <!-- <span>[name of file]</span> -->
-</p>
- 
-
-  <!-- <button ng-click="calculateQuantity()">Отправить на проверку</button> -->
-
-<form method="POST" action="http://127.0.0.1:8080" enctype="multipart/form-data" > 
-<input type="file" name="new_solution" /> 
-<br/>
-<input type="submit" name="pressed" /> 
-</form>
-
-
-</div>
-
-
 </body>
 </html>

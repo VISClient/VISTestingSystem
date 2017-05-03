@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="resultApp">
+<head>
+ <meta charset="utf-8">
+ <title>Results</title>
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+ <script src="login.js"></script>
+</head>
+<body ng-controller="LoginCtrl">
+   <a href='../attempts/attempts.html'> Attempts</a>
+   <a href='../submit/submit.html'> Submit</a>
+   <h2>Login</h2>
+   <input ng-model='my_login' type="text" >  </br>
+    <input ng-model='my_password' type="password" >  </br>
+ <button ng-click="login()">
+       Login
+    </button>
+    <div ng-repeat="el in mas"> {{el}}</div>
+</body>
+</html>£

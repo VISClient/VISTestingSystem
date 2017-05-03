@@ -1,34 +1,71 @@
 angular.module('app', [])
  
-.controller('taskCtrl', function($scope, $scope){
-  /*
-   * Создаем список элементов
-   */
-  $scope.itemsList = [
-    {'name': 'A'},
-    {'name': 'B' },
-    {'name': 'C'},
-    {'name': 'D'},
-  ];
+
+ .controller('SubmitCntr', function ($scope, $http){ // testing version
+        $scope.submit = function (file) {
+            $http.post("http://happyest.ru/getdata?type=0", file).success(function(data) {
+                $scope.mas = data.a
+                console.log("OK")
+            }).error(function (data) {
+              console.log("OOOPS")
+                //console.log(data)
+            })
+        }
+  }) 
+       
+.controller('taskCtrl', function($scope, $scope, $http, $log, $window){
+
+var selectedFile;
+
+$scope.file_changed = function(element) {
+
+     $scope.$apply(function(scope) {
+         selectedFile = element.files[0];
+         var reader = new FileReader();
+         reader.onload = function(e) {
+            // handle onload
+         };
+         reader.readAsDataURL(selectedFile);
+     });
+   }
+
+
+  $scope.problemList = ['A', 'B', 'C', 'D']
+  $scope.languageList = ['C++ 14', 'Java', 'OCaml', 'Idris']
+
+  $scope.submitClick = function () {
+    console.log($scope.problem)
+    console.log($scope.languages)
+    console.log(selectedFile)
+
+    $http.post("http://github.com/api/send?problem=" + $scope.problem + "&language=" + $scope.languages, {'file': photofile}).success(
+     //$http.get("http://github.com").success(
+        function (data) {
+         $window.location.href = '../attempts/attempts.html'
+        }
+      ).error(
+        function (data) {
+          console.log("OOOP")
+           
+        }
+      )
+  }       
+  $scope.selectProblem = function(id) {
+    $log.info(id)
+  }
+
+  var test = function () {
+    $log.info("preload function")
+  }
+
+  test()
+
+
+
 
 
 })
 
-.controller('langCtrl', function($scope, $scope){
-  /*
-   * Создаем список элементов
-   */
-
-   $scope.itemsList2 = [
-    {'name': 'C++ 14 '},
-    {'name': 'C++ 11' },
-    {'name': 'Java 8.0'},
-    {'name': 'Java 6.0'},
-    {'name': 'Pascal '},
-    {'name': 'Phyton '},
-    {'name': 'OCaml '}
-  ];
-})
 
 
 
