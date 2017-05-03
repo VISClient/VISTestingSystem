@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="attemptApp">
+<head>
+ <meta charset="utf-8">
+
+ <title>Attempts</title>
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+ <script src="attempt.js"></script>
+</head>
+<body ng-controller="AttemptCtrl">
+   <a href='../results/results.html'> Results</a>
+    <a href='../submit/submit.html'> Submit</a>
+  <h2>Attempts</h2>
+  <table class="table table-striped">
+   <tr>
+    <th>Time</th>
+    <th>Task</th>
+    <th>Attempt</th>
+    <th>Result</th>
+   </tr>
+   <tr ng-repeat="att in atts | orderBy:time:sortReverse">
+    <td>{{att.time}}</td>
+    <td>{{att.task}}</td>
+    <td>{{att.attempt}}</td>
+    <td>{{att.result}}</td>
+   </tr>
+  </table>
+</body>
+</html>
