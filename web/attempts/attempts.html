@@ -15,13 +15,11 @@
   <h2>Attempts</h2>
   <table class="table table-striped">
    <tr>
-    <th>Time</th>
     <th>Task</th>
     <th>Attempt</th>
     <th>Result</th>
    </tr>
-   <tr ng-repeat="att in atts | orderBy:time:sortReverse">
-    <td>{{att.time}}</td>
+   <tr ng-repeat="att in atts">
     <td>{{att.task}}</td>
     <td>{{att.attempt}}</td>
     <td>{{att.result}}</td>
