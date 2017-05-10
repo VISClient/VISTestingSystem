@@ -38,8 +38,8 @@ $scope.file_changed = function(element) {
     console.log($scope.languages)
     console.log(selectedFile)
 
-    $http.post("http://github.com/api/send?problem=" + $scope.problem + "&language=" + $scope.languages, {'file': photofile}).success(
-     //$http.get("http://github.com").success(
+    //$http.post("http://github.com/api/send?problem=" + $scope.problem + "&language=" + languages, {'file': selectedFile}).success(
+     $http.get("http://github.com").success(
         function (data) {
          $window.location.href = '../attempts/attempts.html'
         }
