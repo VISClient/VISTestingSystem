@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <string.h>
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
@@ -16,8 +17,10 @@ int main(int argc, char *argv[]) {
     pid_t pid = fork();
     if (pid == 0) {
         int own_pid = getpid();
-        system("echo " + to_string(own_pid) + " > /sys/fs/cgroup/memory/group0/tasks");
-        system("echo " + to_string(own_pid) + " > /sys/fs/cgroup/cpu/group0/tasks");
+        string tmp = "echo " + to_string(own_pid) + " > /sys/fs/cgroup/memory/group0/tasks";
+	    i = system(tmp.c_str());
+        tmp = "echo " + to_string(own_pid) + " > /sys/fs/cgroup/cpu/group0/tasks";
+	    i = system(tmp.c_str());
         returned_sign = execl(str.c_str(), NULL);
         exit(returned_sign);
     } else {
@@ -29,6 +32,7 @@ int main(int argc, char *argv[]) {
         }
         str = "./checker.exe input.txt output.txt ans.txt";
         i = system(str.c_str());
-        return i;
+	    cout << "i = " << i << endl;
+        return i / 256;
     }
 }
