@@ -1,15 +1,10 @@
 
-
 <!-- <link rel="stylesheet" href="app.css" /> -->
 <!doctype html>
 <html lang="en" ng-app="app" >
   <head>
     <meta charset="utf-8">
     <title>Submit</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js"></script>
-     <!--<script src="bower_components/angular/angular.js"></script>-->
-    <script src="submit.js"></script>
   </head>
   <body>
     <lu>
@@ -18,24 +13,42 @@
       <p>ОТПРАВИТЬ</p>
     </lu>
 <div ng-app="app" ng-controller="taskCtrl">
-    <p>Задача</p>
-    <select ng-model="problem" > 
-      <option ng-repeat="el in problemList" value="{{el}}">{{el}}</option>
-    </select>
-
-    <p>Язык</p>
-    <select ng-model="languages" > 
-      <option ng-repeat="el in languageList" value="{{el}}">{{el}}</option>
-    </select>
-<br>
-<br>
-<input ng-model="selectFile"
+ 
+<!-- <br>
+<br> -->
+<!-- <input ng-model="selectFile"
        onchange="angular.element(this).scope().file_changed(this)"
-       type="file" accept="*" />
-
-
-<br>
+       type="file" accept="*" /> -->
+ 
+ 
+<!-- <br>
   <button ng-click="submitClick()">Отправить</button>
-</div>
+</div> -->
+ 
+<!-- <br> -->
+ 
+<form action="http://localhost:8080/submit"
+ method='post' enctype='multipart/form-data'>
+  <p>Задача</p>
+    <select name = "problem" id = "problem"> 
+      <option value = "A">A</option>
+      <option value = "B">B</option>
+      <option value = "C">C</option>
+    </select>
+  <p>Язык</p>
+    <select ng-model="languages" name = "language"> 
+      <option value = "Java">Java</option>
+      <option value = "C++">C++</option>
+      <option value = "OCaml">OCaml</option>
+    </select>
+    <br>
+    <br>
+  <input type='file' name='uploaded_file'>
+  <br>
+  <br>
+  <button>Submit</button>
+</form>
+ 
 </body>
 </html>
+ 

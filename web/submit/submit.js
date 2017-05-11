@@ -34,21 +34,46 @@ $scope.file_changed = function(element) {
   $scope.languageList = ['C++ 14', 'Java', 'OCaml', 'Idris']
 
   $scope.submitClick = function () {
+
+    // xmlhttp=new XMLHttpRequest();
+
+    // xmlhttp.onreadystatechange = function() {
+    //     if (xmlhttp.readyState == 4) {
+    //         console.log(xmlhttp.responseText);
+    //     }
+    // }
+
+    // xmlhttp.open("GET","http://localhost:4567/submit?problem=x&language=a&source=x", true);
+    // xmlhttp.send();
+
+    // var xhr = new XMLHttpRequest();
+    // xhr.onreadystatechange = handleStateChange; // Implemented elsewhere.
+    // xhr.open("GET", chrome.extension.getURL('/config_resources/config.json'), true);
+    // xhr.send();
+
     console.log($scope.problem)
     console.log($scope.languages)
     console.log(selectedFile)
 
-    //$http.post("http://github.com/api/send?problem=" + $scope.problem + "&language=" + languages, {'file': selectedFile}).success(
-     $http.get("localhost:4567/submit?problem=A&language=C++&source=a").success(
-        function (data) {
-         $window.location.href = '../attempts/attempts.html'
-        }
-      ).error(
-        function (data) {
-          console.log("OOOP")
-           
-        }
-      )
+    var fd = new FormData();
+       fd.append('file', selectedFile);
+       var obj = {
+         title: "title",
+         text: "text",
+         file: fd
+       };
+       var newObj = JSON.stringify(obj);
+
+         $http.post("http://localhost:8080/submit", newObj, {
+           transformRequest: angular.identity,
+           headers: {'Content-Type': 'multipart/form-data'}
+         })
+      .success(function(){
+        
+      })
+      .error(function(error){
+        toaster.pop('error', 'Errore', error);
+      });
   }       
   $scope.selectProblem = function(id) {
     $log.info(id)
