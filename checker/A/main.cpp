@@ -15,10 +15,30 @@ const int OK = 0;
 const int WA = 1;
 const int TL = 2;
 const int CE = 3;
+const int ME = 4;
 
+
+void kill_all_process() {
+    FILE *fp;
+    fp = fopen("/sys/fs/cgroup/memory/1/tasks", "r");
+    long long j;
+    string s;
+    while (fscanf(fp, "%lld", &j) > 0) {
+        s = "kill -9 " + to_string(j);
+        system(s.c_str());
+    }
+    fclose(fp);
+    fp = fopen("/sys/fs/cgroup/cpuacct/1/tasks", "r");
+    while (fscanf(fp, "%lld", &j) > 0) {
+        s = "kill -9 " + to_string(j);
+        system(s.c_str());
+    }
+    fclose(fp);
+    system("echo 0 > /sys/fs/cgroup/memory/1/memory.failcnt");
+    system("echo 0 > /sys/fs/cgroup/cpuacct/1/cpuacct.stat");
+}
 
 int main(int argc, char *argv[]) {
-    //freopen("verdict.txt", "w", stdout);
     string dir = "/home/vadim/universe/web-server/VISTestingSystem/checker/A";
 
     string command = "g++ -std=c++11 " + dir + "/testing.cpp -o " + dir + "/testing.exe";
@@ -27,27 +47,31 @@ int main(int argc, char *argv[]) {
     if (ret != 0) {
         return CE;
     }
-    double start = (double) clock() / CLOCKS_PER_SEC;
     pid_t pid = fork();
     if (pid == 0) {
-        string tmp = "echo " + to_string(getpid()) + " > /sys/fs/cgroup/memory/group0/tasks";
-        //ret = system(tmp.c_str());
-        tmp = "echo " + to_string(getpid()) + " > /sys/fs/cgroup/cpu/group0/tasks";
-        //ret = system(tmp.c_str());
+        string tmp = "echo " + to_string(getpid()) + " > /sys/fs/cgroup/memory/1/tasks";
+        system(tmp.c_str());
+        tmp = "echo " + to_string(getpid()) + " > /sys/fs/cgroup/cpuacct/1/tasks";
+        system(tmp.c_str());
         command = dir + "/testing.exe < " + dir + "/input.txt " + " > " + dir + "/output.txt";
         system(command.c_str());
     } else {
-        int status;
-        while (1) {
-            double diff = (double) clock() / CLOCKS_PER_SEC - start;
-            pid_t returned_pid = waitpid(pid, &status, WNOHANG);
-            if (diff > TIME_LIMIT && returned_pid == 0) {
-                return TL;
-            } else if (returned_pid == pid) {
-                break;
-            }
+        sleep(2000);
+        freopen("/sys/fs/cgroup/cpuacct/1/cpuacct.stat", "r", stdin);
+        long long full_time;
+        cin >> full_time;
+        full_time /= 1000000000;
+        if ((double)full_time - 2.0 > 0.00000001) {
+            kill_all_process();
+            return TL;
         }
-        
+        freopen("/sys/fs/cgroup/cpuacct/1/memory.failcnt", "r", stdin);
+        int count;
+        cin >> count;
+        if (count > 0) {
+            kill_all_process();
+            return  ME;
+        }
         command = dir + "/checker.exe " + dir + "/input.txt "
                   + dir + "/output.txt " + dir + "/ans.txt";
 
