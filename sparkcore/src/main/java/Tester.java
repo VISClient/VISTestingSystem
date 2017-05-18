@@ -16,7 +16,7 @@ import static spark.Spark.*;
 public class Tester {
     public static void main(String[] args) {
         Server.main(args);
-        final String targetURL = "http://localhost:4567/submit";
+        final String targetURL = "http://localhost:8080/submit";
         final String urlParameters = "";
         String resp = executePost(targetURL, urlParameters);
         System.out.println(resp);
