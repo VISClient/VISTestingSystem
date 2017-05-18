@@ -43,7 +43,6 @@ void kill_all_process() {
 int main(int argc, char *argv[]) {
     string dir = "/home/vadim/universe/web-server/VISTestingSystem/checker/A";
 
-<<<<<<< HEAD
     string compiler;
 
 
@@ -59,18 +58,17 @@ int main(int argc, char *argv[]) {
     string command = "g++ -std=c++11 " + dir + "/testing.cpp -o " + dir + "/testing.exe";
 
     int ret = system(command.c_str());
->>>>>>> a90f55ebb279148e0ecd68452c2c58ab862b6e81
+
     if (ret != 0) {
         return CE;
     }
-<<<<<<< HEAD
-
-    double start = (double) clock() / CLOCKS_PER_SEC;
 
     pid_t pid = fork();
     if (pid == 0) {
-        string limit = "echo " + to_string(getpid()) + " > /sys/fs/cgroup/memory/group0/tasks";
-        ret = system(limit.c_str());
+        string tmp = "echo " + to_string(getpid()) + " > /sys/fs/cgroup/memory/1/tasks";
+        system(tmp.c_str());
+        tmp = "echo " + to_string(getpid()) + " > /sys/fs/cgroup/cpuacct/1/tasks";
+        system(tmp.c_str());
         string runner;
         string io = "< " + dir + "/input.txt " + " > " + dir + "/output.txt";
         if (language == "C++") {
@@ -79,34 +77,6 @@ int main(int argc, char *argv[]) {
             runner = "java -cp " + dir + " Testing " + io;
         }
         system(runner.c_str());
-    } else {
-
-        int status;
-        while (1) {
-            double diff = (double) clock() / CLOCKS_PER_SEC - start;
-            pid_t returned_pid = waitpid(pid, &status, WNOHANG);
-            if (returned_pid < 0) {
-                return PE;
-            }
-            if (diff > TIME_LIMIT && returned_pid == 0) {
-                return TL;
-            } else if (returned_pid == pid) {
-                break;
-            }
-        }
-
-        string command = dir + "/checker.exe " + dir + "/input.txt "
-        + dir + "/output.txt " + dir + "/ans.txt";
-        
-=======
-    pid_t pid = fork();
-    if (pid == 0) {
-        string tmp = "echo " + to_string(getpid()) + " > /sys/fs/cgroup/memory/1/tasks";
-        system(tmp.c_str());
-        tmp = "echo " + to_string(getpid()) + " > /sys/fs/cgroup/cpuacct/1/tasks";
-        system(tmp.c_str());
-        command = dir + "/testing.exe < " + dir + "/input.txt " + " > " + dir + "/output.txt";
-        system(command.c_str());
     } else {
         sleep(2000);
         freopen("/sys/fs/cgroup/cpuacct/1/cpuacct.stat", "r", stdin);
@@ -124,10 +94,10 @@ int main(int argc, char *argv[]) {
             kill_all_process();
             return  ME;
         }
-        command = dir + "/checker.exe " + dir + "/input.txt "
-                  + dir + "/output.txt " + dir + "/ans.txt";
 
->>>>>>> a90f55ebb279148e0ecd68452c2c58ab862b6e81
+        string command = dir + "/checker.exe " + dir + "/input.txt "
+        + dir + "/output.txt " + dir + "/ans.txt";
+
         ret = system(command.c_str()) / 256;
         if (ret == 0) {
             return OK;
@@ -135,5 +105,6 @@ int main(int argc, char *argv[]) {
             return WA;
         }
     }
+    
     return 0;
 }
