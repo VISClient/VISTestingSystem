@@ -75,12 +75,12 @@ int main(int argc, char *argv[]) {
         }
         system(runner.c_str());
     } else {
-        sleep(2000);
+        sleep(2);
         freopen("/sys/fs/cgroup/cpuacct/1/cpuacct.usage", "r", stdin);
         long long full_time;
         cin >> full_time;
-        full_time /= 1000000000;
-        if ((double)full_time - 2.0 > 0.00000001) {
+        cout << "the time is " << full_time << endl;
+        if ((double)full_time - 2000000000.0 > 0.00000001) {
             kill_all_process();
             return TL;
         }
