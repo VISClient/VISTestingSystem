@@ -53,11 +53,8 @@ int main(int argc, char *argv[]) {
         compiler = "javac " + dir + "/Testing.java";
     }
 
-    
-    int ret = system(compiler.c_str());
-    string command = "g++ -std=c++11 " + dir + "/testing.cpp -o " + dir + "/testing.exe";
 
-    int ret = system(command.c_str());
+    int ret = system(compiler.c_str());
 
     if (ret != 0) {
         return CE;
@@ -96,7 +93,7 @@ int main(int argc, char *argv[]) {
         }
 
         string command = dir + "/checker.exe " + dir + "/input.txt "
-        + dir + "/output.txt " + dir + "/ans.txt";
+                         + dir + "/output.txt " + dir + "/ans.txt";
 
         ret = system(command.c_str()) / 256;
         if (ret == 0) {
@@ -105,6 +102,6 @@ int main(int argc, char *argv[]) {
             return WA;
         }
     }
-    
+
     return 0;
 }
