@@ -37,7 +37,7 @@ void kill_all_process() {
     }
     fclose(fp);
     system("echo 0 > /sys/fs/cgroup/memory/1/memory.failcnt");
-    system("echo 0 > /sys/fs/cgroup/cpuacct/1/cpuacct.stat");
+    system("echo 0 > /sys/fs/cgroup/cpuacct/1/cpuacct.usage");
 }
 
 int main(int argc, char *argv[]) {
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
         system(runner.c_str());
     } else {
         sleep(2000);
-        freopen("/sys/fs/cgroup/cpuacct/1/cpuacct.stat", "r", stdin);
+        freopen("/sys/fs/cgroup/cpuacct/1/cpuacct.usage", "r", stdin);
         long long full_time;
         cin >> full_time;
         full_time /= 1000000000;
